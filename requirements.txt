@@ -2,4 +2,4 @@ streamlit
 tensorflow
 numpy
 pillow
-google_drive_downloader
+gdown
