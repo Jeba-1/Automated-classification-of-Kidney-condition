@@ -5,15 +5,15 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from PIL import Image
-from google_drive_downloader import GoogleDriveDownloader as gdd
+import gdown
 import os
 
 # Download model from Google Drive if not exists
 model_path = "Custom_CNN (1).h5"
+file_id = "1c9Rsky1DmCUsHO-rTRfzejvZQ5nV8Ukh"
+url = f"https://drive.google.com/uc?id={file_id}"
 if not os.path.exists(model_path):
-    gdd.download_file_from_google_drive(file_id='1c9Rsky1DmCUsHO-rTRfzejvZQ5nV8Ukh',
-                                        dest_path='https://drive.google.com/file/d/1c9Rsky1DmCUsHO-rTRfzejvZQ5nV8Ukh/view?usp=sharing',
-                                        unzip=False)
+    gdown.download(url, model_path, quiet=False)
 
 # Load the trained model
 model = load_model(model_path)
@@ -129,7 +129,7 @@ if uploaded_files:
         st.write(f"**Description:** {condition_info['description']}")
 
         # Symptoms
-        st.write("**Symptoms:**")
+        st.write("**Symptoms:")
         for symptom in condition_info["symptoms"]:
             st.write(f"- {symptom}")
 
@@ -143,4 +143,4 @@ if uploaded_files:
         for treatment in condition_info["treatment"]:
             st.write(f"- {treatment}")
         st.write("---")
-        
+          
