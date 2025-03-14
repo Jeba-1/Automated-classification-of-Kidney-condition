@@ -10,7 +10,7 @@ import gdown
 import os
 
 # ✅ Register the custom VisionTransformerBlock before loading the model
-@keras.saving.register_keras_serializable()
+@keras.utils.register_keras_serializable()
 class VisionTransformerBlock(keras.layers.Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, **kwargs):
         super().__init__(**kwargs)
