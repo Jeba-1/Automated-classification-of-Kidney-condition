@@ -14,11 +14,7 @@ file_id = "1I1lh8MydejP2i_n-qqRHiK42QBwsXIpc"
 url = f"https://drive.google.com/uc?id={file_id}"
 if not os.path.exists(model_path):
     gdown.download(url, model_path, quiet=False)
-
-# Load the trained model
-from tensorflow import keras
-with keras.utils.custom_object_scope({'Cast': keras.layers.Lambda(lambda x: x)}):
-    model = keras.models.load_model('model_path')
+model = keras.models.load_model(model_path)
 
 # Define class information
 CLASS_INFO = {
