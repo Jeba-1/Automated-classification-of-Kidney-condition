@@ -9,7 +9,6 @@ from PIL import Image
 import gdown
 import os
 
-# ✅ Register the custom layer before loading the model
 @keras.utils.register_keras_serializable()
 class VisionTransformerBlock(keras.layers.Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, **kwargs):
@@ -28,23 +27,28 @@ class VisionTransformerBlock(keras.layers.Layer):
         ffn_output = self.ffn(x)
         return self.layernorm2(x + ffn_output)
 
-# ✅ Model path
-model_path = "cnnvit_model.keras"  # Ensure correct extension
+# ✅ Model Path
+model_path = "cnnvit_model.keras"
 file_id = "10fKN_QUu4lmW_f4zMJmmJPthUDYWWYwl"
 url = f"https://drive.google.com/uc?id={file_id}"
 
-# ✅ Download model if not exists
+# ✅ Download Model if Not Exists
 if not os.path.exists(model_path):
+    print("⚠️ Model not found! Downloading...")
     gdown.download(url, model_path, quiet=False)
+else:
+    print("✅ Model file found.")
 
-# ✅ Load model with custom layer support
-model = None  # Initialize model to avoid 'NameError'
+# ✅ Load Model with Custom Objects
+model = None  # Initialize
 try:
     with keras.utils.custom_object_scope({"VisionTransformerBlock": VisionTransformerBlock}):
         model = keras.models.load_model(model_path)
-    st.success("Model loaded successfully! 🚀")
+    print("✅ Model loaded successfully!")
 except Exception as e:
-    st.error(f"Error loading model: {str(e)}")
+    print(f"❌ Model failed to load: {e}")
+
+
 # Define class information
 CLASS_INFO = {
     "Cyst": {
