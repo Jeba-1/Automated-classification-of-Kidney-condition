@@ -16,7 +16,9 @@ if not os.path.exists(model_path):
     gdown.download(url, model_path, quiet=False)
 
 # Load the trained model
-model = load_model(model_path)
+from tensorflow import keras
+with keras.utils.custom_object_scope({'Cast': keras.layers.Lambda(lambda x: x)}):
+    model = keras.models.load_model('model_path')
 
 # Define class information
 CLASS_INFO = {
