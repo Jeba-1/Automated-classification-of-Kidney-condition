@@ -9,25 +9,40 @@ from PIL import Image
 import gdown
 import os
 
-# Define model path
-model_path = "cnnvit_model.keras"  # Ensure your model is in Keras 3 format (.keras)
+# ✅ Register the custom VisionTransformerBlock before loading the model
+@keras.saving.register_keras_serializable()
+class VisionTransformerBlock(keras.layers.Layer):
+    def __init__(self, embed_dim, num_heads, ff_dim, **kwargs):
+        super().__init__(**kwargs)
+        self.attention = keras.layers.MultiHeadAttention(num_heads=num_heads, key_dim=embed_dim)
+        self.ffn = keras.Sequential([
+            keras.layers.Dense(ff_dim, activation="relu"),
+            keras.layers.Dense(embed_dim),
+        ])
+        self.layernorm1 = keras.layers.LayerNormalization()
+        self.layernorm2 = keras.layers.LayerNormalization()
+
+    def call(self, inputs):
+        attn_output = self.attention(inputs, inputs)
+        x = self.layernorm1(inputs + attn_output)
+        ffn_output = self.ffn(x)
+        return self.layernorm2(x + ffn_output)
+
+# ✅ Download model if not exists
+model_path = "cnnvit_model.keras"  # Ensure the correct format
 file_id = "10fKN_QUu4lmW_f4zMJmmJPthUDYWWYwl"
 url = f"https://drive.google.com/uc?id={file_id}"
 
-# Download model from Google Drive if not exists
 if not os.path.exists(model_path):
-    st.write("Downloading model, please wait...")
     gdown.download(url, model_path, quiet=False)
 
-# Load the trained model
-st.write("Loading model...")
+# ✅ Load the trained model with custom objects
 try:
-    model = tf.keras.models.load_model(model_path, safe_mode=False)  # Use safe_mode=False for compatibility
-    st.write("Model loaded successfully! ✅")
+    with keras.saving.custom_object_scope({"VisionTransformerBlock": VisionTransformerBlock}):
+        model = keras.models.load_model(model_path)
+    st.success("Model loaded successfully! 🚀")
 except Exception as e:
-    st.error(f"Error loading model: {e}")
-    st.stop()
-
+    st.error(f"Error loading model: {str(e)}")
 # Define class information
 CLASS_INFO = {
     "Cyst": {
