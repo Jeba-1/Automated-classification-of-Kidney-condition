@@ -9,8 +9,8 @@ import gdown
 import os
 
 # Download model from Google Drive if not exists
-model_path = "Custom_CNN (1).h5"
-file_id = "1c9Rsky1DmCUsHO-rTRfzejvZQ5nV8Ukh"
+model_path = "cnnvit_model.h5"
+file_id = "1I1lh8MydejP2i_n-qqRHiK42QBwsXIpc"
 url = f"https://drive.google.com/uc?id={file_id}"
 if not os.path.exists(model_path):
     gdown.download(url, model_path, quiet=False)
