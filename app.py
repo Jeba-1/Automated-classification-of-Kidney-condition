@@ -10,25 +10,23 @@ import gdown
 import os
 
 # Define model path
-model_path = "cnnvit_model.h5"
-file_id = "1I1lh8MydejP2i_n-qqRHiK42QBwsXIpc"
+model_path = "cnnvit_model.keras"  # Ensure your model is in Keras 3 format (.keras)
+file_id = "10fKN_QUu4lmW_f4zMJmmJPthUDYWWYwl"
 url = f"https://drive.google.com/uc?id={file_id}"
 
-# Download model from Google Drive if it doesn't exist
+# Download model from Google Drive if not exists
 if not os.path.exists(model_path):
-    print("Downloading model...")
+    st.write("Downloading model, please wait...")
     gdown.download(url, model_path, quiet=False)
 
-# Ensure the file exists after download
-if os.path.exists(model_path):
-    print("Model file exists. Loading...")
-    
-    # Load model with custom object handling
-    with keras.utils.custom_object_scope({'Cast': keras.layers.Lambda(lambda x: x)}):
-        model = keras.models.load_model(model_path)
-
-else:
-    raise FileNotFoundError(f"Model file not found at {model_path}. Check download link.")
+# Load the trained model
+st.write("Loading model...")
+try:
+    model = tf.keras.models.load_model(model_path, safe_mode=False)  # Use safe_mode=False for compatibility
+    st.write("Model loaded successfully! ✅")
+except Exception as e:
+    st.error(f"Error loading model: {e}")
+    st.stop()
 
 # Define class information
 CLASS_INFO = {
