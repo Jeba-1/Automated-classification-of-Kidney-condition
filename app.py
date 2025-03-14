@@ -9,7 +9,7 @@ from PIL import Image
 import gdown
 import os
 
-# ✅ Register the custom VisionTransformerBlock before loading the model
+# ✅ Register the custom layer before loading the model
 @keras.utils.register_keras_serializable()
 class VisionTransformerBlock(keras.layers.Layer):
     def __init__(self, embed_dim, num_heads, ff_dim, **kwargs):
@@ -28,17 +28,19 @@ class VisionTransformerBlock(keras.layers.Layer):
         ffn_output = self.ffn(x)
         return self.layernorm2(x + ffn_output)
 
-# ✅ Download model if not exists
-model_path = "cnnvit_model.keras"  # Ensure the correct format
+# ✅ Model path
+model_path = "cnnvit_model.keras"  # Ensure correct extension
 file_id = "10fKN_QUu4lmW_f4zMJmmJPthUDYWWYwl"
 url = f"https://drive.google.com/uc?id={file_id}"
 
+# ✅ Download model if not exists
 if not os.path.exists(model_path):
     gdown.download(url, model_path, quiet=False)
 
-# ✅ Load the trained model with custom objects
+# ✅ Load model with custom layer support
+model = None  # Initialize model to avoid 'NameError'
 try:
-    with keras.saving.custom_object_scope({"VisionTransformerBlock": VisionTransformerBlock}):
+    with keras.utils.custom_object_scope({"VisionTransformerBlock": VisionTransformerBlock}):
         model = keras.models.load_model(model_path)
     st.success("Model loaded successfully! 🚀")
 except Exception as e:
