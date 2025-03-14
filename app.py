@@ -9,13 +9,26 @@ from PIL import Image
 import gdown
 import os
 
-# Download model from Google Drive if not exists
+# Define model path
 model_path = "cnnvit_model.h5"
 file_id = "1I1lh8MydejP2i_n-qqRHiK42QBwsXIpc"
 url = f"https://drive.google.com/uc?id={file_id}"
+
+# Download model from Google Drive if it doesn't exist
 if not os.path.exists(model_path):
+    print("Downloading model...")
     gdown.download(url, model_path, quiet=False)
-model = keras.models.load_model(model_path)
+
+# Ensure the file exists after download
+if os.path.exists(model_path):
+    print("Model file exists. Loading...")
+    
+    # Load model with custom object handling
+    with keras.utils.custom_object_scope({'Cast': keras.layers.Lambda(lambda x: x)}):
+        model = keras.models.load_model(model_path)
+
+else:
+    raise FileNotFoundError(f"Model file not found at {model_path}. Check download link.")
 
 # Define class information
 CLASS_INFO = {
