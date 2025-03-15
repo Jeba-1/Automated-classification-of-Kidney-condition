@@ -1,4 +1,3 @@
-
 import streamlit as st
 import numpy as np
 import tensorflow as tf
@@ -6,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
 import os
+import gdown
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from sklearn.metrics import classification_report, confusion_matrix
@@ -18,24 +18,31 @@ def preprocess_image_for_model(img):
     img = np.expand_dims(img, axis=0)  # Add batch dimension
     return [img, img]  # Return list for both CNN and ViT inputs
 
-# ------------------- Load the Model Safely -------------------
+# ------------------- Load the Model from Google Drive -------------------
 @st.cache_resource
 def load_kidney_model():
     try:
-        if os.path.exists("/content/kidney_model.keras"):
-            model = load_model("/content/kidney_model.keras", compile=False)
-        elif os.path.exists("/content/kidney_model.h5"):
-            model = load_model("/content/kidney_model.h5", compile=False)
-        else:
-            st.error("❌ Model file not found! Please check the file path.")
-            return None
-        st.success("✅ Model loaded successfully!")
-        return model
+        model_paths = {
+            "model1": "https://drive.google.com/uc?id=1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c",
+            "model2": "https://drive.google.com/uc?id=1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
+        }
+        
+        model_files = {}
+        for key, url in model_paths.items():
+            output = f"{key}.h5"
+            gdown.download(url, output, quiet=False)
+            model_files[key] = output
+        
+        model1 = load_model(model_files["model1"], compile=False)
+        model2 = load_model(model_files["model2"], compile=False)
+        
+        st.success("✅ Models loaded successfully!")
+        return model1, model2
     except Exception as e:
-        st.error(f"❌ Error loading model: {e}")
-        return None
+        st.error(f"❌ Error loading models: {e}")
+        return None, None
 
-model = load_kidney_model()
+model1, model2 = load_kidney_model()
 
 # ------------------- Function to Make Predictions -------------------
 def predict_image(img):
