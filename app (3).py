@@ -11,12 +11,12 @@ from tensorflow.keras.preprocessing import image
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Google Drive file IDs
-file_id1 = "1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c"
-file_id2 = "1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
+file_id1 = "1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
+file_id2 = "1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c"
 
 # Local model file paths
-model_path1 = "https://drive.google.com/file/d/1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c/view?usp=sharing"
-model_path2 = "https://drive.google.com/file/d/1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3/view?usp=sharing"
+model_path1 = "https://drive.google.com/file/d/1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3/view?usp=drive_link"
+model_path2 = "https://drive.google.com/file/d/1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c/view?usp=drive_link"
 
 # ✅ Download models if not already present
 if not os.path.exists(model_path1):
