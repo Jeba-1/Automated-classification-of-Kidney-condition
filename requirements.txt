@@ -4,6 +4,6 @@ numpy
 tensorflow
 matplotlib
 seaborn
-opencv-python
+opencv-python-headless
 scikit-learn
 gdown
