@@ -10,6 +10,20 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from sklearn.metrics import classification_report, confusion_matrix
 
+# Google Drive file IDs
+file_id1 = "1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c"
+file_id2 = "1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
+
+# Local model file paths
+model_path1 = "https://drive.google.com/file/d/1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c/view?usp=sharing"
+model_path2 = "https://drive.google.com/file/d/1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3/view?usp=sharing"
+
+# ✅ Download models if not already present
+if not os.path.exists(model_path1):
+    gdown.download(f"https://drive.google.com/uc?id={file_id1}", model_path1, quiet=False)
+if not os.path.exists(model_path2):
+    gdown.download(f"https://drive.google.com/uc?id={file_id2}", model_path2, quiet=False)
+
 # ✅ Fix: Image Preprocessing Function
 def preprocess_image_for_model(img):
     img_size = 224  # Match model input size
@@ -18,31 +32,24 @@ def preprocess_image_for_model(img):
     img = np.expand_dims(img, axis=0)  # Add batch dimension
     return [img, img]  # Return list for both CNN and ViT inputs
 
-# ------------------- Load the Model from Google Drive -------------------
+# ------------------- Load the Model Safely -------------------
 @st.cache_resource
 def load_kidney_model():
     try:
-        model_paths = {
-            "model1": "https://drive.google.com/uc?id=1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c",
-            "model2": "https://drive.google.com/uc?id=1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
-        }
-        
-        model_files = {}
-        for key, url in model_paths.items():
-            output = f"{key}.h5"
-            gdown.download(url, output, quiet=False)
-            model_files[key] = output
-        
-        model1 = load_model(model_files["model1"], compile=False)
-        model2 = load_model(model_files["model2"], compile=False)
-        
-        st.success("✅ Models loaded successfully!")
-        return model1, model2
+        if os.path.exists(model_path1):
+            model = load_model(model_path1, compile=False)
+        elif os.path.exists(model_path2):
+            model = load_model(model_path2, compile=False)
+        else:
+            st.error("❌ Model file not found! Please check the file path.")
+            return None
+        st.success("✅ Model loaded successfully!")
+        return model
     except Exception as e:
-        st.error(f"❌ Error loading models: {e}")
-        return None, None
+        st.error(f"❌ Error loading model: {e}")
+        return None
 
-model1, model2 = load_kidney_model()
+model = load_kidney_model()
 
 # ------------------- Function to Make Predictions -------------------
 def predict_image(img):
@@ -83,3 +90,4 @@ if uploaded_file is not None:
             st.success(f"🩺 Prediction: {label} ({confidence * 100:.2f}%)")
         else:
             st.error("❌ Model not loaded. Please check the error messages above.")
+
