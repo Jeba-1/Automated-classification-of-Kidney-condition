@@ -15,7 +15,7 @@ file_id1 = "1-9hdnMIKTD5hC1aUFyhIhYF-Ma8SDwu3"
 file_id2 = "1-DW72WcIujQI7wlX_Mje-mKbM0Ls898c"
 
 # Local model file paths
-model_path1 = "kidney_model1.h5"
+model_path1 = "kidney_model1.keras"
 model_path2 = "kidney_model2.h5"
 
 # ✅ Download models if not already present
