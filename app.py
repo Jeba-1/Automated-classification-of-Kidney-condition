@@ -36,7 +36,7 @@ def load_kidney_model():
         else:
             st.error("❌ Model file not found! Please check the file path.")
             return None
-        st.success("✅ Model loaded successfully!")
+        st.success("")
         return model
     except Exception as e:
         st.error(f"❌ Error loading model: {e}")
