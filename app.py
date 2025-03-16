@@ -24,7 +24,7 @@ file_id1 = "1-F1b1rqhcwwyOJoOgkrDi4EAfBSb17rB"
 # Local model file paths
 model_path = "kidney_model.keras"
 # ✅ Download models if not already present
-if not os.path.exists(model_path1):
+if not os.path.exists(model_path):
     gdown.download(f"https://drive.google.com/uc?id={file_id1}", model_path, quiet=False)
   
 # ------------------- Load the Model Safely -------------------
