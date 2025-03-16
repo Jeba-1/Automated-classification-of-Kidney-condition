@@ -27,20 +27,19 @@ model_path = "kidney_model.keras"
 if not os.path.exists(model_path1):
     gdown.download(f"https://drive.google.com/uc?id={file_id1}", model_path, quiet=False)
   
-
 # ------------------- Load the Model Safely -------------------
 @st.cache_resource
 def load_kidney_model():
     try:
         if os.path.exists(model_path):
             model = load_model(model_path, compile=False)
-            st.success("")
-            return model
-        except Exception as e:
-            st.error(f"❌ Error loading model: {e}")
+        else:
+            st.error("❌ Model file not found! Please check the file path.")
             return None
-    else:
-        st.error("❌ Model file not found! Please check the file path.")
+        st.success("✅ Model loaded successfully!")
+        return model
+    except Exception as e:
+        st.error(f"❌ Error loading model: {e}")
         return None
 
 model = load_kidney_model()
