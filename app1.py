@@ -4,9 +4,18 @@ import tensorflow as tf
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from PIL import Image
+import gdown
+import os
+
+# Download model from Google Drive if not exists
+model_path = "Custom_CNN (1).h5"
+file_id = "1c9Rsky1DmCUsHO-rTRfzejvZQ5nV8Ukh"
+url = f"https://drive.google.com/uc?id={file_id}"
+if not os.path.exists(model_path):
+    gdown.download(url, model_path, quiet=False)
 
 # Load the trained model
-model = load_model("/content/Custom_CNN.h5")
+model = load_model(model_path)
 
 # Define class information
 CLASS_INFO = {
