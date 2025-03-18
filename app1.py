@@ -123,7 +123,7 @@ if uploaded_file is not None:
         st.write(f"### Prediction: {predicted_class}")
         st.write(f"Confidence: {confidence:.2f}%")
     
-    if st.button("Show Description"):
+    if st.button("✨Show Description"):
         st.write(f"**Description:** {CLASS_INFO[predicted_class]['description']}")
     
     if st.button("🛑Show Symptoms"):
