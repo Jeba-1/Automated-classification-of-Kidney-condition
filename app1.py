@@ -96,7 +96,7 @@ CLASS_INFO = {
 st.title("🩺 Automated Classification of Kidney Condition ")
 st.write("Upload a kidney CT scan image to classify its condition.")
 
-uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
+uploaded_files = st.file_uploader("Choose images...", type=["jpg", "png", "jpeg"], accept_multiple_files=True)
 
 if uploaded_file is not None:
     # Load and display the image
