@@ -93,7 +93,7 @@ CLASS_INFO = {
 }
 
 # Streamlit UI
-st.title("Automated Classification of Kidney Condition ")
+st.title("🩺 Automated Classification of Kidney Condition ")
 st.write("Upload a kidney CT scan image to classify its condition.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
@@ -119,24 +119,24 @@ if uploaded_file is not None:
     confidence = np.max(prediction) * 100  # Convert to percentage
 
     # Display classification results with buttons
-    if st.button("Show Prediction"):
+    if st.button("🔍Show Prediction"):
         st.write(f"### Prediction: {predicted_class}")
         st.write(f"Confidence: {confidence:.2f}%")
     
     if st.button("Show Description"):
         st.write(f"**Description:** {CLASS_INFO[predicted_class]['description']}")
     
-    if st.button("Show Symptoms"):
+    if st.button("🛑Show Symptoms"):
         st.write("**Symptoms:**")
         for symptom in CLASS_INFO[predicted_class]["symptoms"]:
             st.write(f"- {symptom}")
     
-    if st.button("Show Diagnosis Measures"):
+    if st.button("🩻Show Diagnosis Measures"):
         st.write("**Diagnosis Measures:**")
         for measure in CLASS_INFO[predicted_class]["diagnosis"]:
             st.write(f"- {measure}")
     
-    if st.button("Show Treatment Suggestions"):
+    if st.button("💊Show Treatment Suggestions"):
         st.write("**Treatment Suggestions:**")
         for treatment in CLASS_INFO[predicted_class]["treatment"]:
             st.write(f"- {treatment}")
