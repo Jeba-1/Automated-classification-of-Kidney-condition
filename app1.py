@@ -97,11 +97,14 @@ st.title("🩺 Automated Classification of Kidney Condition ")
 st.write("Upload a kidney CT scan image to classify its condition.")
 
 uploaded_files = st.file_uploader("Choose images...", type=["jpg", "png", "jpeg"], accept_multiple_files=True)
-
-if uploaded_file is not None:
-    # Load and display the image
-    img = Image.open(uploaded_file)
-    st.image(img, caption="Uploaded Image", use_column_width=True)
+if uploaded_files:
+    for uploaded_file in uploaded_files:
+        img = Image.open(uploaded_file)
+        st.image(img, caption=f"Uploaded Image: {uploaded_file.name}", use_column_width=True)
+        img_array = preprocess_image(img)
+        prediction = model.predict(img_array)
+        predicted_class = max(CLASS_INFO.keys(), key=lambda c: prediction[0][list(CLASS_INFO.keys()).index(c)])
+        confidence = np.max(prediction) * 100  # Convert to percentage
 
     # Preprocess the image
     def preprocess_image(img):
