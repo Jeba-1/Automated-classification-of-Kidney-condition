@@ -97,13 +97,13 @@ st.title("🩺 Automated Classification of Kidney Condition ")
 st.write("Upload a kidney CT scan image to classify its condition.")
 
 uploaded_files = st.file_uploader("Choose images...", type=["jpg", "png", "jpeg"], accept_multiple_files=True)
-    # Preprocess the image
-    def preprocess_image(img):
-        img = img.resize((224, 224))  # Resize to model input size
-        img = image.img_to_array(img)
-        img = np.expand_dims(img, axis=0)  # Add batch dimension
-        img = img / 255.0  # Normalize pixel values
-        return img
+# Preprocess the image
+def preprocess_image(img):
+    img = img.resize((224, 224))  # Resize to model input size
+    img = image.img_to_array(img)
+    img = np.expand_dims(img, axis=0)  # Add batch dimension
+    img = img / 255.0  # Normalize pixel values
+    return img
 if uploaded_files:
     for uploaded_file in uploaded_files:
         img = Image.open(uploaded_file)
