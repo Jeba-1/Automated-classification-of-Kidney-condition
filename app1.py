@@ -93,7 +93,7 @@ CLASS_INFO = {
 }
 
 # Streamlit UI
-st.title("Kidney Condition Classification")
+st.title("Automated Classification of Kidney Condition ")
 st.write("Upload a kidney CT scan image to classify its condition.")
 
 uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "png", "jpeg"])
