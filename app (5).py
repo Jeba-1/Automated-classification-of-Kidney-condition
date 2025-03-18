@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
 import os
+import gdown
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 from sklearn.metrics import classification_report, confusion_matrix
@@ -18,20 +19,27 @@ def preprocess_image_for_model(img):
     img = np.expand_dims(img, axis=0)  # Add batch dimension
     return [img, img]  # Return list for both CNN and ViT inputs
 
+# Google Drive file IDs
+file_id = "1-3mMxVnyUoGdFsm2l9tVQiBFF3SDVXza"
+# Local model file paths
+model_path = "kidney_model.keras"
+# ✅ Download models if not already present
+if not os.path.exists(model_path):
+    gdown.download(f"https://drive.google.com/uc?id={file_id}", model_path, quiet=False)
+  
 # ------------------- Load the Model Safely -------------------
 @st.cache_resource
 def load_kidney_model():
-    model_path = "/content/kidney_model.keras"
-    if os.path.exists(model_path):
-        try:
+    try:
+        if os.path.exists(model_path):
             model = load_model(model_path, compile=False)
-            st.success("")
-            return model
-        except Exception as e:
-            st.error(f"❌ Error loading model: {e}")
+        else:
+            st.error("❌ Model file not found! Please check the file path.")
             return None
-    else:
-        st.error("❌ Model file not found! Please check the file path.")
+        st.success(" ")
+        return model
+    except Exception as e:
+        st.error(f"❌ Error loading model: {e}")
         return None
 
 model = load_kidney_model()
