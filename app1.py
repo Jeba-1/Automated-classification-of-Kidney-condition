@@ -105,33 +105,36 @@ def preprocess_image(img):
     img = img / 255.0  # Normalize pixel values
     return img
 if uploaded_files:
-    for uploaded_file in uploaded_files:
+    for i, uploaded_file in enumerate(uploaded_files):
         img = Image.open(uploaded_file)
-        st.image(img, caption=f"Uploaded Image: {uploaded_file.name}", use_column_width=True)
+        st.image(img, caption=f"Uploaded Image {i+1}: {uploaded_file.name}", use_column_width=True)
         img_array = preprocess_image(img)
         prediction = model.predict(img_array)
         predicted_class = max(CLASS_INFO.keys(), key=lambda c: prediction[0][list(CLASS_INFO.keys()).index(c)])
         confidence = np.max(prediction) * 100  # Convert to percentage
-
-    # Display classification results with buttons
-    if st.button("🔍Show Prediction"):
-        st.write(f"### Prediction: {predicted_class}")
+        
+        # Unique key for each button to avoid conflicts
+        st.write(f"### Prediction for Image {i+1}: {predicted_class}")
         st.write(f"Confidence: {confidence:.2f}%")
-    
-    if st.button("✨Show Description"):
-        st.write(f"**Description:** {CLASS_INFO[predicted_class]['description']}")
-    
-    if st.button("🛑Show Symptoms"):
-        st.write("**Symptoms:**")
-        for symptom in CLASS_INFO[predicted_class]["symptoms"]:
-            st.write(f"- {symptom}")
-    
-    if st.button("🩻Show Diagnosis Measures"):
-        st.write("**Diagnosis Measures:**")
-        for measure in CLASS_INFO[predicted_class]["diagnosis"]:
-            st.write(f"- {measure}")
-    
-    if st.button("💊Show Treatment Suggestions"):
-        st.write("**Treatment Suggestions:**")
-        for treatment in CLASS_INFO[predicted_class]["treatment"]:
-            st.write(f"- {treatment}")
+
+        if st.button(f"🔍 Show Prediction for Image {i+1}", key=f"pred_{i}"):
+            st.write(f"### Prediction: {predicted_class}")
+            st.write(f"Confidence: {confidence:.2f}%")
+
+        if st.button(f"✨ Show Description for Image {i+1}", key=f"desc_{i}"):
+            st.write(f"**Description:** {CLASS_INFO[predicted_class]['description']}")
+
+        if st.button(f"🛑 Show Symptoms for Image {i+1}", key=f"symptoms_{i}"):
+            st.write("**Symptoms:**")
+            for symptom in CLASS_INFO[predicted_class]["symptoms"]:
+                st.write(f"- {symptom}")
+
+        if st.button(f"🩻 Show Diagnosis Measures for Image {i+1}", key=f"diag_{i}"):
+            st.write("**Diagnosis Measures:**")
+            for measure in CLASS_INFO[predicted_class]["diagnosis"]:
+                st.write(f"- {measure}")
+
+        if st.button(f"💊 Show Treatment Suggestions for Image {i+1}", key=f"treat_{i}"):
+            st.write("**Treatment Suggestions:**")
+            for treatment in CLASS_INFO[predicted_class]["treatment"]:
+                st.write(f"- {treatment}")
