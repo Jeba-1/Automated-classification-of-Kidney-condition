@@ -114,22 +114,22 @@ if uploaded_files:
         confidence = np.max(prediction) * 100  # Convert to percentage
         
         # Unique key for each button to avoid conflicts
-        st.write(f"### Prediction for Image {i+1}: {predicted_class}")
+        st.write(f"### Prediction {i+1}: {predicted_class}")
         st.write(f"Confidence: {confidence:.2f}%")
 
-        if st.button(f"🔍 Show Prediction for Image {i+1}", key=f"pred_{i}"):
+        if st.button(f"🔍 Show Prediction {i+1}", key=f"pred_{i}"):
             st.write(f"### Prediction: {predicted_class}")
             st.write(f"Confidence: {confidence:.2f}%")
 
-        if st.button(f"✨ Show Description for Image {i+1}", key=f"desc_{i}"):
+        if st.button(f"✨ Show Description {i+1}", key=f"desc_{i}"):
             st.write(f"**Description:** {CLASS_INFO[predicted_class]['description']}")
 
-        if st.button(f"🛑 Show Symptoms for Image {i+1}", key=f"symptoms_{i}"):
+        if st.button(f"🛑 Show Symptoms {i+1}", key=f"symptoms_{i}"):
             st.write("**Symptoms:**")
             for symptom in CLASS_INFO[predicted_class]["symptoms"]:
                 st.write(f"- {symptom}")
 
-        if st.button(f"🩻 Show Diagnosis Measures for Image {i+1}", key=f"diag_{i}"):
+        if st.button(f"🩻 Show Diagnosis Measures {i+1}", key=f"diag_{i}"):
             st.write("**Diagnosis Measures:**")
             for measure in CLASS_INFO[predicted_class]["diagnosis"]:
                 st.write(f"- {measure}")
