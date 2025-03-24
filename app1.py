@@ -108,7 +108,7 @@ def preprocess_image(img):
 if uploaded_files:
     for i, uploaded_file in enumerate(uploaded_files):
         img = Image.open(uploaded_file)
-        st.image(img, caption=f"Uploaded Image: {uploaded_file.name}", use_column_width=True)
+        st.image(img, caption=f"Uploaded Image: {uploaded_file.name}", use_container_width=True)
 
         # Prediction logic only when button is clicked
         if st.button("🔍 Predict", key=f"predict_{i}"):
