@@ -171,7 +171,10 @@ if uploaded_files:
                 pdf.cell(200, 10, f"Prediction: {predicted_class}", ln=True)
                 pdf.cell(200, 10, f"Confidence: {confidence:.2f}%", ln=True)
                 pdf.ln(4)
-
+                # Horizontal Line after Prediction Condition
+                pdf.set_line_width(0.5)
+                pdf.line(10, pdf.get_y(), 200, pdf.get_y())
+                pdf.ln(5)
                 # Add sections with horizontal lines
                 sections = [
                     ("Description", CLASS_INFO[predicted_class]['description']),
