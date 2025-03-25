@@ -7,3 +7,4 @@ seaborn
 opencv-python-headless
 scikit-learn
 gdown
+fpdf
