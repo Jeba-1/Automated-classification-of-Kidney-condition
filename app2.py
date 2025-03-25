@@ -133,17 +133,17 @@ if uploaded_files:
             if st.button("🛑 Symptoms", key=f"symptoms_{i}"):
                 st.write("**Symptoms:**")
                 for symptom in CLASS_INFO[predicted_class]["symptoms"]:
-                    st.write(f"- {symptom}")
+                    st.write(f"* {symptom}")
 
             if st.button("🩻 Diagnosis", key=f"diagnosis_{i}"):
                 st.write("**Diagnosis Measures:**")
                 for measure in CLASS_INFO[predicted_class]["diagnosis"]:
-                    st.write(f"- {measure}")
+                    st.write(f"* {measure}")
 
             if st.button("💊 Treatment", key=f"treatment_{i}"):
                 st.write("**Treatment Suggestions:**")
                 for treatment in CLASS_INFO[predicted_class]["treatment"]:
-                    st.write(f"- {treatment}")
+                    st.write(f"* {treatment}")
             # Generate PDF Report
             def generate_pdf():
               pdf = FPDF()
