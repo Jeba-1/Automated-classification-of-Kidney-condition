@@ -155,7 +155,7 @@ if uploaded_files:
 
                 # Title
                 pdf.set_font("Times", style='B', size=16)
-                pdf.cell(200, 10, "Kidney Condition Report", ln=True, align='C')
+                pdf.cell(200, 10, "Kidney Condition Classification Report", ln=True, align='C')
                 pdf.ln(10)
 
                 # Add Image
