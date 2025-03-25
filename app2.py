@@ -19,7 +19,79 @@ if not os.path.exists(model_path):
 model = load_model(model_path)
 
 # Define class information
-CLASS_INFO = { ... }  # Keeping class information unchanged
+CLASS_INFO = {
+    "Cyst": {
+        "description": "Cystic kidney disease involves fluid-filled sacs in the kidney that may require monitoring or treatment.",
+        "symptoms": [
+            "Pain in the back or side",
+            "High blood pressure",
+            "Frequent urination",
+            "Blood in urine"
+        ],
+        "diagnosis": [
+            "Ultrasound",
+            "CT scan",
+            "MRI",
+            "Kidney function tests"
+        ],
+        "treatment": [
+            "Regular monitoring with imaging tests",
+            "Medications for pain relief and blood pressure control",
+            "Drainage procedures for large cysts",
+            "Surgery in severe cases"
+        ]
+    },
+    "Normal": {
+        "description": "The kidney appears normal with no visible abnormalities.",
+        "symptoms": ["No symptoms (healthy kidney function)"],
+        "diagnosis": ["Routine medical checkup"],
+        "treatment": ["Maintain a healthy lifestyle", "Drink plenty of water", "Regular medical checkups"]
+    },
+    "Stone": {
+        "description": "Kidney stones are mineral deposits that may cause pain and require treatment.",
+        "symptoms": [
+            "Severe lower back or abdominal pain",
+            "Blood in urine",
+            "Frequent urge to urinate",
+            "Nausea and vomiting"
+        ],
+        "diagnosis": [
+            "CT scan",
+            "X-ray",
+            "Urine tests",
+            "Ultrasound"
+        ],
+        "treatment": [
+            "Increased water intake to help flush out small stones",
+            "Pain relievers",
+            "Medications to break down or pass stones",
+            "Shock wave therapy (ESWL) for larger stones",
+            "Surgical removal in severe cases"
+        ]
+    },
+    "Tumor": {
+        "description": "A kidney tumor might indicate malignancy or benign growth. Further testing is needed to determine the severity.",
+        "symptoms": [
+            "Blood in urine",
+            "Abdominal pain",
+            "Unexplained weight loss",
+            "Fatigue",
+            "Fever"
+        ],
+        "diagnosis": [
+            "CT scan",
+            "MRI",
+            "Biopsy",
+            "Blood tests"
+        ],
+        "treatment": [
+            "Surgical removal (nephrectomy for malignant tumors)",
+            "Targeted therapy or immunotherapy for cancerous tumors",
+            "Radiation therapy in some cases",
+            "Regular follow-up imaging"
+        ]
+    }
+}
 
 # Streamlit UI
 st.title("🩺 Automated Classification of Kidney Condition ")
