@@ -158,7 +158,7 @@ if uploaded_files:
               # Add Image (Placeholder for user-uploaded image)
               image_path = f"uploaded_image_{i}.jpg"
               img.save(image_path)  # Save the uploaded image temporarily
-              pdf.image(image_path, x=70, y=40, w=100)
+              pdf.image(image_path, x=60, y=30, w=90)
               pdf.ln(80)
 
               # Prediction Result
