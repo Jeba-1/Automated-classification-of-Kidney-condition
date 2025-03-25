@@ -151,7 +151,7 @@ if uploaded_files:
               # Draw outer border
               pdf.rect(5, 5, 200, 287)
               # Title
-              pdf.set_font("Arial", style='B', size=16)
+              pdf.set_font("Times", style='B', size=16)
               pdf.cell(200, 10, "Kidney Condition Report", ln=True, align='C')
               pdf.ln(10)
 
@@ -159,12 +159,12 @@ if uploaded_files:
               image_path = f"uploaded_image_{i}.jpg"
               img.save(image_path)  # Save the uploaded image temporarily
               pdf.image(image_path, x=60, y=30, w=90)
-              pdf.ln(65)
+              pdf.ln(80)
 
               # Prediction Result
-              pdf.set_font("Arial", style='B', size=14)
+              pdf.set_font("Times", style='B', size=14)
               pdf.cell(200, 10, "Prediction Result", ln=True)
-              pdf.set_font("Arial", size=12)
+              pdf.set_font("Times", size=12)
               pdf.cell(200, 10, f"Prediction: {predicted_class}", ln=True)
               pdf.cell(200, 10, f"Confidence: {confidence:.2f}%", ln=True)
               pdf.ln(5)
@@ -175,9 +175,9 @@ if uploaded_files:
               pdf.ln(5)
 
               # Description
-              pdf.set_font("Arial", style='B', size=14)
+              pdf.set_font("Times", style='B', size=14)
               pdf.cell(200, 10, "Description", ln=True)
-              pdf.set_font("Arial", size=12)
+              pdf.set_font("Times", size=12)
               pdf.multi_cell(0, 10, CLASS_INFO[predicted_class]['description'])
               pdf.ln(5)
 
@@ -186,9 +186,9 @@ if uploaded_files:
               pdf.ln(5)
 
               # Symptoms
-              pdf.set_font("Arial", style='B', size=14)
+              pdf.set_font("Times", style='B', size=14)
               pdf.cell(200, 10, "Symptoms", ln=True)
-              pdf.set_font("Arial", size=12)
+              pdf.set_font("Times", size=12)
               for symptom in CLASS_INFO[predicted_class]['symptoms']:
                 pdf.cell(200, 10, f"- {symptom}", ln=True)
               pdf.ln(5)
@@ -198,9 +198,9 @@ if uploaded_files:
               pdf.ln(5)
 
               # Diagnosis Measures
-              pdf.set_font("Arial", style='B', size=14)
+              pdf.set_font("Times", style='B', size=14)
               pdf.cell(200, 10, "Diagnosis Measures", ln=True)
-              pdf.set_font("Arial", size=12)
+              pdf.set_font("Times", size=12)
               for measure in CLASS_INFO[predicted_class]['diagnosis']:
                 pdf.cell(200, 10, f"- {measure}", ln=True)
               pdf.ln(5)
@@ -210,9 +210,9 @@ if uploaded_files:
               pdf.ln(5)
 
               # Treatment Suggestions
-              pdf.set_font("Arial", style='B', size=14)
+              pdf.set_font("Times", style='B', size=14)
               pdf.cell(200, 10, "Treatment Suggestions", ln=True)
-              pdf.set_font("Arial", size=12)
+              pdf.set_font("Times", size=12)
               for treatment in CLASS_INFO[predicted_class]['treatment']:
                 pdf.cell(200, 10, f"- {treatment}", ln=True)
               pdf.ln(5)
