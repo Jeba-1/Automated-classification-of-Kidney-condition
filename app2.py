@@ -163,11 +163,11 @@ if uploaded_files:
 
               # Prediction Result
               pdf.set_font("Times", style='B', size=14)
-              pdf.cell(200, 10, "Prediction Result", ln=True)
+              pdf.cell(200, 10, "Prediction Condition", ln=True)
               pdf.set_font("Times", size=12)
               pdf.cell(200, 10, f"Prediction: {predicted_class}", ln=True)
               pdf.cell(200, 10, f"Confidence: {confidence:.2f}%", ln=True)
-              pdf.ln(5)
+              pdf.ln(4)
 
               # Horizontal Line
               pdf.set_line_width(0.5)
@@ -179,7 +179,7 @@ if uploaded_files:
               pdf.cell(200, 10, "Description", ln=True)
               pdf.set_font("Times", size=12)
               pdf.multi_cell(0, 10, CLASS_INFO[predicted_class]['description'])
-              pdf.ln(5)
+              pdf.ln(4)
 
               # Horizontal Line
               pdf.line(10, pdf.get_y(), 200, pdf.get_y())
@@ -191,7 +191,7 @@ if uploaded_files:
               pdf.set_font("Times", size=12)
               for symptom in CLASS_INFO[predicted_class]['symptoms']:
                 pdf.cell(200, 10, f"- {symptom}", ln=True)
-              pdf.ln(5)
+              pdf.ln(4)
 
               # Horizontal Line
               pdf.line(10, pdf.get_y(), 200, pdf.get_y())
@@ -203,7 +203,7 @@ if uploaded_files:
               pdf.set_font("Times", size=12)
               for measure in CLASS_INFO[predicted_class]['diagnosis']:
                 pdf.cell(200, 10, f"- {measure}", ln=True)
-              pdf.ln(5)
+              pdf.ln(4)
 
               # Horizontal Line
               pdf.line(10, pdf.get_y(), 200, pdf.get_y())
@@ -215,7 +215,7 @@ if uploaded_files:
               pdf.set_font("Times", size=12)
               for treatment in CLASS_INFO[predicted_class]['treatment']:
                 pdf.cell(200, 10, f"- {treatment}", ln=True)
-              pdf.ln(5)
+              pdf.ln(4)
 
               # Horizontal Line
               pdf.line(10, pdf.get_y(), 200, pdf.get_y())
