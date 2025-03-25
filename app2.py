@@ -190,7 +190,7 @@ if uploaded_files:
                    
                     if isinstance(content, list):  # Symptoms, diagnosis, treatment are lists
                         for item in content:
-                            pdf.cell(200, 10, f"- {item}", ln=True)
+                            pdf.cell(200, 10, f"* {item}", ln=True)
                     else:  # Description is a string
                         pdf.multi_cell(0, 10, content)
 
