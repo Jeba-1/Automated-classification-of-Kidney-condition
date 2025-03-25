@@ -199,14 +199,14 @@ if uploaded_files:
                 pdf_path = f"report_{i}.pdf"
                 pdf.output(pdf_path)
                 return pdf_path
-
-             if st.button("📥 Download Report", key=f"download_{i}"):
-                 pdf_path = generate_pdf()
-                 with open(pdf_path, "rb") as file:
-                     st.download_button(
-                         label="Download Report as PDF",
-                         data=file,
-                         file_name=f"Kidney_Condition_Report_{i}.pdf",
-                         mime="application/pdf"
-                     )
+                
+            if st.button("📥 Download Report", key=f"download_{i}"):
+                pdf_path = generate_pdf()
+                with open(pdf_path, "rb") as file:
+                    st.download_button(
+                        label="Download Report as PDF",
+                        data=file,
+                        file_name=f"Kidney_Condition_Report_{i}.pdf",
+                        mime="application/pdf"
+                    )
 
