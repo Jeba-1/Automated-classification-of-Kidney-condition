@@ -153,60 +153,60 @@ if uploaded_files:
                 pdf = PDF()
                 pdf.add_page()
 
-               # Title
-               pdf.set_font("Times", style='B', size=16)
-               pdf.cell(200, 10, "Kidney Condition Report", ln=True, align='C')
-               pdf.ln(10)
+                # Title
+                pdf.set_font("Times", style='B', size=16)
+                pdf.cell(200, 10, "Kidney Condition Report", ln=True, align='C')
+                pdf.ln(10)
 
-               # Add Image
-               image_path = f"uploaded_image_{i}.jpg"
-               img.save(image_path)
-               pdf.image(image_path, x=60, y=30, w=90)
-               pdf.ln(80)
+                # Add Image
+                image_path = f"uploaded_image_{i}.jpg"
+                img.save(image_path)
+                pdf.image(image_path, x=60, y=30, w=90)
+                pdf.ln(80)
 
-               # Prediction Result
-               pdf.set_font("Times", style='B', size=14)
-               pdf.cell(200, 10, "Prediction Condition", ln=True)
-               pdf.set_font("Times", size=12)
-               pdf.cell(200, 10, f"Prediction: {predicted_class}", ln=True)
-               pdf.cell(200, 10, f"Confidence: {confidence:.2f}%", ln=True)
-               pdf.ln(4)
+                # Prediction Result
+                pdf.set_font("Times", style='B', size=14)
+                pdf.cell(200, 10, "Prediction Condition", ln=True)
+                pdf.set_font("Times", size=12)
+                pdf.cell(200, 10, f"Prediction: {predicted_class}", ln=True)
+                pdf.cell(200, 10, f"Confidence: {confidence:.2f}%", ln=True)
+                pdf.ln(4)
 
-               # Add sections with horizontal lines
-               sections = [
-                   ("Description", CLASS_INFO[predicted_class]['description']),
-                   ("Symptoms", CLASS_INFO[predicted_class]['symptoms']),
-                   ("Diagnosis Measures", CLASS_INFO[predicted_class]['diagnosis']),
-                   ("Treatment Suggestions", CLASS_INFO[predicted_class]['treatment']),
-               ]
+                # Add sections with horizontal lines
+                sections = [
+                    ("Description", CLASS_INFO[predicted_class]['description']),
+                    ("Symptoms", CLASS_INFO[predicted_class]['symptoms']),
+                    ("Diagnosis Measures", CLASS_INFO[predicted_class]['diagnosis']),
+                    ("Treatment Suggestions", CLASS_INFO[predicted_class]['treatment']),
+                ]
 
-               for title, content in sections:
-                   pdf.set_font("Times", style='B', size=14)
-                   pdf.cell(200, 10, title, ln=True)
-                   pdf.set_font("Times", size=12)
+                for title, content in sections:
+                    pdf.set_font("Times", style='B', size=14)
+                    pdf.cell(200, 10, title, ln=True)
+                    pdf.set_font("Times", size=12)
                    
-                   if isinstance(content, list):  # Symptoms, diagnosis, treatment are lists
-                       for item in content:
-                           pdf.cell(200, 10, f"- {item}", ln=True)
-                   else:  # Description is a string
-                       pdf.multi_cell(0, 10, content)
+                    if isinstance(content, list):  # Symptoms, diagnosis, treatment are lists
+                        for item in content:
+                            pdf.cell(200, 10, f"- {item}", ln=True)
+                    else:  # Description is a string
+                        pdf.multi_cell(0, 10, content)
 
-                   pdf.ln(4)
-                   pdf.line(10, pdf.get_y(), 200, pdf.get_y())  # Draw horizontal line
-                   pdf.ln(5)
+                    pdf.ln(4)
+                    pdf.line(10, pdf.get_y(), 200, pdf.get_y())  # Draw horizontal line
+                    pdf.ln(5)
 
-               # Save and return the PDF file
-               pdf_path = f"report_{i}.pdf"
-               pdf.output(pdf_path)
-               return pdf_path
+                # Save and return the PDF file
+                pdf_path = f"report_{i}.pdf"
+                pdf.output(pdf_path)
+                return pdf_path
 
-            if st.button("📥 Download Report", key=f"download_{i}"):
-                pdf_path = generate_pdf()
-                with open(pdf_path, "rb") as file:
-                    st.download_button(
-                        label="Download Report as PDF",
-                        data=file,
-                        file_name=f"Kidney_Condition_Report_{i}.pdf",
-                        mime="application/pdf"
-                    )
+             if st.button("📥 Download Report", key=f"download_{i}"):
+                 pdf_path = generate_pdf()
+                 with open(pdf_path, "rb") as file:
+                     st.download_button(
+                         label="Download Report as PDF",
+                         data=file,
+                         file_name=f"Kidney_Condition_Report_{i}.pdf",
+                         mime="application/pdf"
+                     )
 
