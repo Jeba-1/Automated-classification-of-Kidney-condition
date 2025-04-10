@@ -39,7 +39,7 @@ pip install -r requirements.txt
 3. Run the Streamlit app:
 streamlit run app.py
 4. Upload a kidney CT scan image & get predictions!
-5. 
+   
 # Results & Insights
 Achieved a high classification accuracy (>90%).
 The system can assist radiologists and healthcare professionals in diagnosis.
