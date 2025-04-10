@@ -28,7 +28,7 @@ Loss & Accuracy Plot: Visualizes model training progress.
 
 # Deployment
 The model is deployed using Streamlit for real-time inference.
-Accessible at: https://automated-classification-of-kidney-condition-qihyquzxqkedgcfas.streamlit.app/
+Accessible at: https://automated-classification-of-kidney-condition-jebapriya.streamlit.app/
 
 # Installation & Usage
 1. Clone the repository:
